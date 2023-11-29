@@ -27,7 +27,7 @@ runs:
       RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
     run: |
       # Copy the package.json file from the action to the current directory
-      cp ${{ github.action_path}}/package.json .
+      cp ${{ github.action_path}}/docs/package.json .
       
       # Update the package.json file with the project name
       sed -i "s/PROJECT_NAME/${PROJECT_NAME}/g" package.json
