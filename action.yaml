@@ -24,6 +24,7 @@ runs:
     shell: bash
     env:
       PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
+      RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
     run: |
       echo '{
         "name": "'${PROJECT_NAME}'",
