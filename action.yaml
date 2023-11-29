@@ -26,16 +26,19 @@ runs:
       PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
       RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
     run: |
+      # Create temporary release directory
+      mkdir "${GITHUB_SHA}"
+      
       # Copy the package.json file from the action to the current directory
-      cp ${{ github.action_path}}/docs/package.json .
+      cp ${{ github.action_path}}/docs/package.json "${GITHUB_SHA}"/package.json
       
       # Update the package.json file with the project name
-      sed -i "s/PROJECT_NAME/${PROJECT_NAME}/g" package.json
+      sed -i "s/PROJECT_NAME/${PROJECT_NAME}/g" "${GITHUB_SHA}"/package.json
       
       echo -e '{
         "name": "'${PROJECT_NAME}'",
         "branches": ["'${RELEASE_BRANCH}'"]
-      }' >> .releaserc
+      }' >> "${GITHUB_SHA}"/.releaserc
 
   - name: Setup Node.js
     uses: actions/setup-node@v4
@@ -43,10 +46,14 @@ runs:
       node-version: 'lts/*'
   - name: Install dependencies
     shell: bash
-    run: npm install
+    run: |
+      cd "${GITHUB_SHA}"
+      npm install
 
   - name: Release
     shell: bash
     env:
       GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
-    run: npx semantic-release
+    run: |
+      cd "${GITHUB_SHA}"
+      npx semantic-release
