@@ -26,14 +26,11 @@ runs:
       PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
       RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
     run: |
-      echo '{
-        "name": "'${PROJECT_NAME}'",
-        "private": true,
-        "devDependencies": {
-          "@semantic-release/github": "^9.0.3",
-          "semantic-release": "^21.0.5"
-        }
-      }' >> package.json
+      # Copy the package.json file from the action to the current directory
+      cp ${{ github.action_path}}/package.json .
+      
+      # Update the package.json file with the project name
+      sed -i "s/PROJECT_NAME/${PROJECT_NAME}/g" package.json
       
       echo -e '{
         "name": "'${PROJECT_NAME}'",
