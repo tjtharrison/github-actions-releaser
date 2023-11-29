@@ -1,0 +1,54 @@
+name: "github-actions-releaser"
+description: "Release GitHub actions versions"
+branding:
+  color: "green"
+  icon: "book-open"
+inputs:
+  PROJECT_NAME:
+    description: "The name of the project to be released"
+    required: true
+  GITHUB_TOKEN:
+    description: "The file that the output report will be written to"
+    required: true
+  RELEASE_BRANCH:
+    description: "The branch to release from"
+    required: true
+    default: "main"
+runs:
+  using: "composite"
+  steps:
+  # Checkout repo
+  - name: Checkout
+    uses: actions/checkout@v4
+  - name: Write release config
+    shell: bash
+    env:
+      PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
+    run: |
+      echo '{
+        "name": "'${PROJECT_NAME}'",
+        "private": true,
+        "devDependencies": {
+          "@semantic-release/github": "^9.0.3",
+          "semantic-release": "^21.0.5"
+        }
+      }' >> package.json
+      
+      echo -e '{
+        "name": "'${PROJECT_NAME}'",
+        "branches": ["'${RELEASE_BRANCH}'"]
+      }' >> .releaserc
+
+  - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: 'lts/*'
+  - name: Install dependencies
+    shell: bash
+    run: npm install
+
+  - name: Release
+    shell: bash
+    env:
+      GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    run: npx semantic-release

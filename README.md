@@ -1,2 +1,4 @@
 # github-actions-releaser
-GitHub action to release new versions of GitHub actions
+
+<!-- BEGIN_ACTION_DOCS -->
+<!-- END_ACTION_DOCS -->
