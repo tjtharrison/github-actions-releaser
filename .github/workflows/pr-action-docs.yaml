@@ -17,4 +17,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Generate action docs
-        uses: ./
+        uses: tjtharrison/github-actions-docs@1.2.0
