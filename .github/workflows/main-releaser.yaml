@@ -1,0 +1,21 @@
+name: Bump version
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  semantic-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Release with semantic-release
+        uses: ./
+        with:
+          PROJECT_NAME: github-actions-releaser
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
