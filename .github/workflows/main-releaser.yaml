@@ -16,3 +16,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Release with semantic-release
         uses: ./
+        with:
+          PROJECT_NAME: github-actions-releaser
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
