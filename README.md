@@ -13,8 +13,8 @@ Release GitHub actions versions, including rolling major versions.
 # outputs
 | Title | Description | Value |
 |-----|-----|-----|
-|NEW_RELEASE | The new release version |  `${{ steps.Release.outputs.NEW_RELEASE }}` | 
-|NEW_MAJOR_RELEASE | The new major release version |  `${{ steps.Release.outputs.NEW_MAJOR_RELEASE }}` | 
+|NEW_RELEASE | The new release version |  `${{ steps.release.outputs.NEW_RELEASE }}` | 
+|NEW_MAJOR_RELEASE | The new major release version |  `${{ steps.release.outputs.NEW_MAJOR_RELEASE }}` | 
 <!-- END_ACTION_DOCS -->
 
 # Example usage
