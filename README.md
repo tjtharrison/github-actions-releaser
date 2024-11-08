@@ -1,7 +1,7 @@
 <!-- BEGIN_ACTION_DOCS -->
 
 # github-actions-releaser
-Release GitHub actions versions
+Release GitHub actions versions, including rolling major versions.
 
 # inputs
 | Title | Required | Type | Description |

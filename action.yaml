@@ -1,5 +1,5 @@
 name: "github-actions-releaser"
-description: "Release GitHub actions versions"
+description: "Release GitHub actions versions, including rolling major versions."
 branding:
   color: "green"
   icon: "book-open"
