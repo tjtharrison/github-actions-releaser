@@ -17,10 +17,10 @@ inputs:
 outputs:
   NEW_RELEASE:
     description: "The new release version"
-    value: ${{ steps.Release.outputs.NEW_RELEASE }}
+    value: ${{ steps.release.outputs.NEW_RELEASE }}
   NEW_MAJOR_RELEASE:
     description: "The new major release version"
-    value: ${{ steps.Release.outputs.NEW_MAJOR_RELEASE }}
+    value: ${{ steps.release.outputs.NEW_MAJOR_RELEASE }}
 runs:
   using: "composite"
   steps:
@@ -59,6 +59,7 @@ runs:
 
   - name: Release
     shell: bash
+    id: release
     env:
       GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
       GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
