@@ -1,7 +1,7 @@
 <!-- BEGIN_ACTION_DOCS -->
 
 # github-actions-releaser
-Release GitHub actions versions
+Release GitHub actions versions, including rolling major versions.
 
 # inputs
 | Title | Required | Type | Description |
@@ -9,6 +9,12 @@ Release GitHub actions versions
 | PROJECT_NAME | True |  | The name of the project to be released |
 | GITHUB_TOKEN | True |  | The file that the output report will be written to |
 | RELEASE_BRANCH | True |  | The branch to release from |
+
+# outputs
+| Title | Description | Value |
+|-----|-----|-----|
+|NEW_RELEASE | The new release version |  `${{ steps.Release.outputs.NEW_RELEASE }}` | 
+|NEW_MAJOR_RELEASE | The new major release version |  `${{ steps.Release.outputs.NEW_MAJOR_RELEASE }}` | 
 <!-- END_ACTION_DOCS -->
 
 # Example usage

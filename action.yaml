@@ -1,5 +1,5 @@
 name: "github-actions-releaser"
-description: "Release GitHub actions versions"
+description: "Release GitHub actions versions, including rolling major versions."
 branding:
   color: "green"
   icon: "book-open"
@@ -14,6 +14,13 @@ inputs:
     description: "The branch to release from"
     required: true
     default: "main"
+outputs:
+  NEW_RELEASE:
+    description: "The new release version"
+    value: ${{ steps.Release.outputs.NEW_RELEASE }}
+  NEW_MAJOR_RELEASE:
+    description: "The new major release version"
+    value: ${{ steps.Release.outputs.NEW_MAJOR_RELEASE }}
 runs:
   using: "composite"
   steps:
@@ -54,6 +61,30 @@ runs:
     shell: bash
     env:
       GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
     run: |
       cd "${GITHUB_SHA}"
       npx semantic-release
+
+      # Get new release version
+      new_release=$(gh release list --limit 1 --json tagName | jq -r '.[0].tagName')
+      new_major_release=$(echo $new_release | cut -d. -f1)
+
+      ## Release major version
+      # Delete major version if it exists (don't fail if it doesn't)
+      git push origin --delete $new_major_release || true
+      gh release delete $new_major_release || true
+
+      # Create major version
+      git tag -f $new_major_release
+      git push origin --tags
+
+      # Recreate release
+      gh release create $new_major_release --generate-notes
+
+      echo "New release version: $new_release"
+      echo "New major release version: $new_major_release"
+
+      # Create outputs
+      echo "NEW_RELEASE=$new_release" >> $GITHUB_OUTPUT
+      echo "NEW_MAJOR_RELEASE=$new_major_release" >> $GITHUB_OUTPUT
