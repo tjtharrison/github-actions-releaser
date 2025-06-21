@@ -4,11 +4,11 @@
 Release GitHub actions versions, including rolling major versions.
 
 # inputs
-| Title | Required | Type | Description |
-|-----|-----|-----|-----|
-| PROJECT_NAME | True |  | The name of the project to be released |
-| GITHUB_TOKEN | True |  | The file that the output report will be written to |
-| RELEASE_BRANCH | True |  | The branch to release from |
+| Title | Required | Type | Default| Description |
+|-----|-----|-----|-----|-----|
+| PROJECT_NAME | True |  |  | The name of the project to be released |
+| GITHUB_TOKEN | True |  |  | The file that the output report will be written to |
+| RELEASE_BRANCH | True |  | `main` | The branch to release from |
 
 # outputs
 | Title | Description | Value |
