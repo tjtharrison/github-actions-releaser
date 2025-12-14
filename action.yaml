@@ -6,7 +6,8 @@ branding:
 inputs:
   PROJECT_NAME:
     description: "The name of the project to be released"
-    required: true
+    required: false
+    default: ${{ github.event.repository.name }}
   GITHUB_TOKEN:
     description: "The file that the output report will be written to"
     required: true
