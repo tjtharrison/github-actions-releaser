@@ -6,7 +6,7 @@ Release GitHub actions versions, including rolling major versions.
 # inputs
 | Title | Required | Type | Default| Description |
 |-----|-----|-----|-----|-----|
-| PROJECT_NAME | True |  |  | The name of the project to be released |
+| PROJECT_NAME | False |  | `${{ github.event.repository.name }}` | The name of the project to be released |
 | GITHUB_TOKEN | True |  |  | The file that the output report will be written to |
 | RELEASE_BRANCH | True |  | `main` | The branch to release from |
 
