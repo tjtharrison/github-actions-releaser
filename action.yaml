@@ -27,7 +27,7 @@ runs:
   steps:
   # Checkout repo
   - name: Checkout
-    uses: actions/checkout@v6
+    uses: actions/checkout@v7
   - name: Write release config
     shell: bash
     env:
